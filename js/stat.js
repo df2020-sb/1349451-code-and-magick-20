@@ -13,8 +13,9 @@ var COL_GAP = 50;
 var TEXT_HEIGHT = 20;
 
 window.renderStatistics = function (ctx, players, times) {
+  var minTime = Math.min.apply(null, times);
   var maxTime = Math.max.apply(null, times);
-  var isWinner = false;
+  console.log(minTime);
   ctx.font = "16px PT Mono";
   ctx.textBaseline = "hanging";
 
@@ -40,12 +41,11 @@ window.renderStatistics = function (ctx, players, times) {
 
   // Рисуем гистограмму в цикле
   for (var i = 0; i < players.length; i++) {
-    if (players[i] === "Вы" && times[i] === maxTime) {
-      isWinner = true;
-    }
+    console.log(times[i]);
+    var isWinner = players[i] === "Вы" && times[i] == minTime ? true : false;
     renderItem(ctx, i, players[i], times[i], maxTime);
   }
-
+  console.log(isWinner);
   // Выводим сообщение
   renderMessage(ctx, isWinner);
 };
