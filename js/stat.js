@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var CLOUD_X = 100;
 var CLOUD_Y = 10;
@@ -15,63 +15,44 @@ var TEXT_HEIGHT = 20;
 window.renderStatistics = function (ctx, players, times) {
   var minTime = Math.min.apply(null, times);
   var maxTime = Math.max.apply(null, times);
-  console.log(minTime);
-  ctx.font = "16px PT Mono";
-  ctx.textBaseline = "hanging";
+  var isWinner = false;
+  ctx.font = '16px PT Mono';
+  ctx.textBaseline = 'hanging';
 
   // Рисуем облако
-  drawRoundedRect(
-    ctx,
-    CLOUD_X + GAP,
-    CLOUD_Y + GAP,
-    CLOUD_WIDTH,
-    CLOUD_HEIGHT,
-    CLOUD_RADIUS,
-    "#00000070"
-  );
-  drawRoundedRect(
-    ctx,
-    CLOUD_X,
-    CLOUD_Y,
-    CLOUD_WIDTH,
-    CLOUD_HEIGHT,
-    CLOUD_RADIUS,
-    "#fff"
-  );
+  drawRoundedRect(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, CLOUD_WIDTH, CLOUD_HEIGHT, CLOUD_RADIUS, '#00000070');
+  drawRoundedRect(ctx, CLOUD_X, CLOUD_Y, CLOUD_WIDTH, CLOUD_HEIGHT, CLOUD_RADIUS, '#fff');
 
   // Рисуем гистограмму в цикле
   for (var i = 0; i < players.length; i++) {
-    console.log(times[i]);
-    var isWinner = players[i] === "Вы" && times[i] == minTime ? true : false;
+    if (players[i] === 'Вы' && times[i] === minTime) {
+      isWinner = true;
+    }
     renderItem(ctx, i, players[i], times[i], maxTime);
   }
-  console.log(isWinner);
   // Выводим сообщение
   renderMessage(ctx, isWinner);
 };
 
 // Генерим сообщение
 function renderMessage(ctx, isWinner) {
-  var message = isWinner ? "Ура! Вы победили!" : "Вы проиграли:(";
+  var message = isWinner ? 'Ура! Вы победили!' : 'Вы проиграли:(';
   var x = CLOUD_X + 2 * GAP;
   var y = CLOUD_Y + 2 * GAP;
-  ctx.fillStyle = "#000";
+  ctx.fillStyle = '#s000';
   ctx.fillText(message, x, y);
-  ctx.fillText("Список результатов:", x, y + TEXT_HEIGHT);
+  ctx.fillText('Список результатов:', x, y + TEXT_HEIGHT);
 }
 
 // Генерим элемент гистограммы
 function renderItem(ctx, index, name, time, maxTime) {
-  var color =
-    name === "Вы"
-      ? "rgba(255, 0, 0, 1)"
-      : setRandomColor("hsl(240, 100%, 50%)");
+  var color = name === 'Вы' ? 'rgba(255, 0, 0, 1)' : setRandomColor('hsl(240, 100%, 50%)');
 
   var x = CLOUD_X + COL_GAP + (COL_WIDTH + COL_GAP) * index;
   var y = CLOUD_Y + CLOUD_HEIGHT;
   var colHeight = (MAX_HEIGHT * time) / maxTime;
 
-  ctx.fillStyle = "#000";
+  ctx.fillStyle = '#000';
   ctx.fillText(name, x, y - TEXT_HEIGHT - 0.5 * GAP);
   ctx.fillText(Math.round(time), x, y - 2 * TEXT_HEIGHT - GAP - colHeight);
 
@@ -81,7 +62,7 @@ function renderItem(ctx, index, name, time, maxTime) {
 
 // Рандомная насыщенность
 function setRandomColor(basicColor) {
-  return basicColor.replace(/\d+%/, Math.round(Math.random() * 100) + "%");
+  return basicColor.replace(/\d+%/, Math.round(Math.random() * 100) + '%');
 }
 
 // Рисуем прямоугольник со скруглениями
