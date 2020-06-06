@@ -26,12 +26,11 @@ var makeRandomName = function (firstNames, lastNames) {
 }
 
 var createWizard = function () {
-  var wizard = {
+  return {
     name: makeRandomName(FIRST_NAMES, LAST_NAMES),
     coatColor: getRandomArrayElement(COAT_COLORS),
     eyesColor: getRandomArrayElement(EYES_COLORS)
   }
-  return wizard
 }
 
 var createWizards = function (number) {
