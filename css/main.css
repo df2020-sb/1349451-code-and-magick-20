@@ -804,8 +804,7 @@ input[type=radio]:checked + .review-mark-label
     width: 75px;
     height: 75px;
 
-
-    /* background-color: #ee4830; */
+    background-color: #ee4830;
 }
 
 .setup-fireball
