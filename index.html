@@ -63,12 +63,13 @@
     <div class="demo"></div>
 
     <div class="setup-open">
-      <img src="./img/user-1.jpg" class="setup-open-icon">
+      <img src="./img/user-1.jpg" class="setup-open-icon" tabindex="0">
     </div>
   </header>
 
   <div class="overlay setup hidden">
-    <form class="setup-wizard-form" method="post" enctype="multipart/form-data" autocomplete="off">
+    <form class="setup-wizard-form" method="post" action="https://javascript.pages.academy/code-and-magick"
+      enctype="multipart/form-data" autocomplete="off">
 
       <div class="setup-title">
         <div class="setup-user">
@@ -77,11 +78,12 @@
             <input type="file" name="avatar">
           </div>
           <label>
-            <input type="text" name="username" maxlength="25" required class="setup-user-name" value="Синий Пендальф" />
+            <input type="text" name="username" maxlength="25" class="setup-user-name" value="Синий Пендальф"
+              minlength="2" maxlength="25" required />
           </label>
         </div>
 
-        <span class="setup-close">&times;</span>
+        <button class="setup-close" tabindex="0">&times;</button>
       </div>
 
 
@@ -106,7 +108,7 @@
               <g class="wizard">
                 <use xlink:href="#wizard-coat" class="wizard-coat" style="fill: #6589a4"></use>
                 <use xlink:href="#wizard-head" class="wizard-head"></use>
-                <use xlink:href="#wizard-eyes" class="wizard-eyes"></use>
+                <use xlink:href="#wizard-eyes" class="wizard-eyes" style="fill:black"></use>
                 <use xlink:href="#wizard-hands" class="wizard-hands"></use>
               </g>
             </svg>
@@ -115,7 +117,7 @@
           <input type="hidden" name="eyes-color" value="black">
         </div>
 
-        <div class="setup-fireball-wrap">
+        <div class="setup-fireball-wrap" style="background-color: #ee4830">
           <div class="setup-fireball"></div>
           <input type="hidden" name="fireball-color" value="#ee4830">
         </div>
