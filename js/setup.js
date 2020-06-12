@@ -73,6 +73,10 @@ userDialog.querySelector('.setup-similar').classList.remove('hidden');
 wizardEyes.style.fill = 'black';
 fireball.style.backgroundColor = '#ee4830';
 
+var coatInput = document.querySelector('input[name=coat-color]');
+var eyesInput = document.querySelector('input[name=eyes-color]');
+var fireballInput = document.querySelector('input[name=fireball-color]');
+
 var onPopupEscPress = function (evt) {
   if (evt.keyCode === 27) {
     evt.preventDefault();
@@ -143,20 +147,23 @@ setupClose.addEventListener('click', function (evt) {
 });
 
 wizardCoat.addEventListener('click', function () {
-  var current = wizardCoat.style.fill;
-  wizardCoat.style.fill = getNextArrayElement(current, COAT_COLORS);
-  document.querySelector('input[name=coat-color]').value = wizardCoat.style.fill;
+  var currentColor = wizardCoat.style.fill;
+  var newColor = getNextArrayElement(currentColor, COAT_COLORS);
+  wizardCoat.style.fill = newColor;
+  coatInput.value = newColor;
 
 });
 
 wizardEyes.addEventListener('click', function () {
-  var current = wizardEyes.style.fill;
-  wizardEyes.style.fill = getNextArrayElement(current, EYES_COLORS);
-  document.querySelector('input[name=eyes-color]').value = wizardEyes.style.fill;
+  var currentColor = wizardEyes.style.fill;
+  var newColor = getNextArrayElement(currentColor, EYES_COLORS);
+  wizardEyes.style.fill = newColor;
+  eyesInput.value = newColor;
 });
 
 fireball.addEventListener('click', function () {
-  var current = RgbToHex(fireball.style.backgroundColor);
-  fireball.style.backgroundColor = hexToRgb(getNextArrayElement(current, FIREBALL_COLORS));
-  document.querySelector('input[name=fireball-color]').value = RgbToHex(fireball.style.backgroundColor);
+  var currentColor = RgbToHex(fireball.style.backgroundColor);
+  var newColor = getNextArrayElement(currentColor, FIREBALL_COLORS);
+  fireball.style.backgroundColor = hexToRgb(newColor);
+  fireballInput.value = newColor;
 });
