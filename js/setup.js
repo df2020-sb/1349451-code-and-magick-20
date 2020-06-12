@@ -70,6 +70,9 @@ similarListElement.appendChild(fragment);
 
 userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
+wizardEyes.style.fill = 'black';
+fireball.style.backgroundColor = '#ee4830';
+
 var onPopupEscPress = function (evt) {
   if (evt.keyCode === 27) {
     evt.preventDefault();
@@ -90,11 +93,7 @@ var closePopup = function () {
 };
 
 var getNextArrayElement = function (current, array) {
-  for (var i = 0; i < array.length; i++) {
-    if (array[i] === current) {
-      return array[(i + 1) % array.length];
-    }
-  };
+  return array[(array.indexOf(current) + 1) % array.length];
 };
 
 var RgbToHex = function (rgb) {
