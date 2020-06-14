@@ -37,7 +37,6 @@
 
   var closeDialog = function () {
     if (document.activeElement !== userNameInput) {
-      console.log(dialogPosition.x, dialogPosition.y)
       userDialog.classList.add('hidden');
       userDialog.style.left = dialogPosition.x;
       userDialog.style.top = dialogPosition.y;
@@ -136,7 +135,7 @@
     fireballInput.value = newColor;
   });
 
-  window.renderWizards(4);
+  window.wizards.render(4);
   similarWizardsContainer.classList.remove('hidden');
   wizardEyes.style.fill = 'black';
   fireball.style.backgroundColor = '#ee4830';

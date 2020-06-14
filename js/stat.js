@@ -14,34 +14,13 @@
   var COL_GAP = 50;
   var TEXT_HEIGHT = 20;
 
-  window.renderStatistics = function (ctx, players, times) {
-    var minTime = Math.min.apply(null, times);
-    var maxTime = Math.max.apply(null, times);
-    var isWinner = false;
-    ctx.font = '16px PT Mono';
-    ctx.textBaseline = 'hanging';
-
-    // Рисуем облако
-    drawRoundedRect(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, CLOUD_WIDTH, CLOUD_HEIGHT, CLOUD_RADIUS, '#00000070');
-    drawRoundedRect(ctx, CLOUD_X, CLOUD_Y, CLOUD_WIDTH, CLOUD_HEIGHT, CLOUD_RADIUS, '#fff');
-
-    // Рисуем гистограмму в цикле
-    for (var i = 0; i < players.length; i++) {
-      if (players[i] === 'Вы' && times[i] === minTime) {
-        isWinner = true;
-      }
-      renderItem(ctx, i, players[i], times[i], maxTime);
-    }
-    // Выводим сообщение
-    renderMessage(ctx, isWinner);
-  };
 
   // Генерим сообщение
   function renderMessage(ctx, isWinner) {
     var message = isWinner ? 'Ура! Вы победили!' : 'Вы проиграли:(';
     var x = CLOUD_X + 2 * GAP;
     var y = CLOUD_Y + 2 * GAP;
-    ctx.fillStyle = '#s000';
+    ctx.fillStyle = '#000';
     ctx.fillText(message, x, y);
     ctx.fillText('Список результатов:', x, y + TEXT_HEIGHT);
   }
@@ -80,4 +59,25 @@
     ctx.fill();
   }
 
+  window.renderStatistics = function (ctx, players, times) {
+    var minTime = Math.min.apply(null, times);
+    var maxTime = Math.max.apply(null, times);
+    var isWinner = false;
+    ctx.font = '16px PT Mono';
+    ctx.textBaseline = 'hanging';
+
+    // Рисуем облако
+    drawRoundedRect(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, CLOUD_WIDTH, CLOUD_HEIGHT, CLOUD_RADIUS, '#00000070');
+    drawRoundedRect(ctx, CLOUD_X, CLOUD_Y, CLOUD_WIDTH, CLOUD_HEIGHT, CLOUD_RADIUS, '#fff');
+
+    // Рисуем гистограмму в цикле
+    for (var i = 0; i < players.length; i++) {
+      if (players[i] === 'Вы' && times[i] === minTime) {
+        isWinner = true;
+      }
+      renderItem(ctx, i, players[i], times[i], maxTime);
+    }
+    // Выводим сообщение
+    renderMessage(ctx, isWinner);
+  };
 })();

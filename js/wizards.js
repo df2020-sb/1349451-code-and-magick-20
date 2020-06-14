@@ -42,12 +42,16 @@
     return wizardElement;
   };
 
-  window.renderWizards = function (number) {
+  var renderWizards = function (number) {
     var wizards = createWizards(4);
     for (var i = 0; i < wizards.length; i++) {
       fragment.appendChild(renderWizard(wizards[i]));
     };
     similarListElement.appendChild(fragment);
   };
+
+  window.wizards = {
+    render: renderWizards,
+  }
 
 })();
