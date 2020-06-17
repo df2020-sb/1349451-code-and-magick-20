@@ -2,7 +2,6 @@
 
 (function () {
 
-
   var MAX_WIZARDS_NUMBER = 4;
 
   var userDialog = document.querySelector('.setup');
@@ -21,6 +20,7 @@
   var eyesInput = document.querySelector('input[name=eyes-color]');
   var fireballInput = document.querySelector('input[name=fireball-color]');
   var similarWizardsContainer = document.querySelector('.setup-similar');
+  var banner;
 
   var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
   var wizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
@@ -137,34 +137,21 @@
     var currentColor = window.utils.rgbToHex(fireball.style.backgroundColor);
     var newColor = window.utils.getNextArrayElement(currentColor, window.colors.FIREBALL_COLORS);
     fireball.style.backgroundColor = window.utils.hexToRgb(newColor);
-    fireballInput.value = newColor;
+    fireballInput.value = window.utils.hexToRgb(newColor);
   });
 
 
   // Запросы
 
   var removeBanner = function () {
-    var banner = document.querySelector('.error-banner');
     if (banner) {
       banner.remove();
     }
   };
 
   var renderBanner = function (text) {
-    var banner = document.createElement('div');
+    banner = document.createElement('div');
     banner.classList.add('error-banner');
-    var styles = {
-      zIndex: '100',
-      position: 'absolute',
-      top: '0',
-      left: '0',
-      width: '100%',
-      backgroundColor: '#d43333',
-      textAlign: 'center',
-      padding: '15px 0',
-      fontSize: '28px',
-    };
-    Object.assign(banner.style, styles);
     banner.textContent = text;
     document.body.insertAdjacentElement('afterbegin', banner);
   };
@@ -192,4 +179,5 @@
   wizardEyes.style.fill = 'black';
   fireball.style.backgroundColor = '#ee4830';
   form.addEventListener('submit', onSubmit);
+
 })();
