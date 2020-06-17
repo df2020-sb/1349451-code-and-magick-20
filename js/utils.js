@@ -32,9 +32,12 @@
     return "rgb(" + +r + "," + +g + "," + +b + ")";
   };
 
-  var getRandomArrayElement = function (arr) {
-    var randomIndex = Math.floor(Math.random() * arr.length)
-    return arr[randomIndex]
+  var getRandomArrayElements = function (arr, n) {
+    var newArray = [];
+    while (n--) {
+      newArray.push(arr[Math.floor(Math.random() * arr.length)])
+    }
+    return newArray
   };
 
   var getNextArrayElement = function (current, array) {
@@ -44,7 +47,7 @@
   window.utils = {
     rgbToHex: rgbToHex,
     hexToRgb: hexToRgb,
-    getRandomArrayElement: getRandomArrayElement,
+    getRandomArrayElements: getRandomArrayElements,
     getNextArrayElement: getNextArrayElement,
   }
 

@@ -2,6 +2,8 @@
 
 (function () {
 
+  var MAX_WIZARDS_NUMBER = 4;
+
   var userDialog = document.querySelector('.setup');
   var dialogPosition = {
     x: userDialog.style.left,
@@ -12,17 +14,20 @@
   var dialogClose = userDialog.querySelector('.setup-close');
   var dialogDrag = userDialog.querySelector('.upload');
 
+  var form = userDialog.querySelector('.setup-wizard-form');
   var userNameInput = userDialog.querySelector('.setup-user-name');
   var coatInput = document.querySelector('input[name=coat-color]');
   var eyesInput = document.querySelector('input[name=eyes-color]');
   var fireballInput = document.querySelector('input[name=fireball-color]');
   var similarWizardsContainer = document.querySelector('.setup-similar');
+  var banner;
 
   var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
   var wizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
   var fireball = document.querySelector('.setup-fireball-wrap');
 
   // Открытие закрытие диалога
+
   var onDialogEscPress = function (evt) {
     if (evt.keyCode === 27) {
       evt.preventDefault();
@@ -100,7 +105,7 @@
       if (dragged) {
         var onClickPreventDefault = function (clickEvt) {
           clickEvt.preventDefault();
-          dialogDrag.removeEventListener('click', onClickPreventDefault)
+          dialogDrag.removeEventListener('click', onClickPreventDefault);
         };
         dialogDrag.addEventListener('click', onClickPreventDefault);
       }
@@ -132,12 +137,47 @@
     var currentColor = window.utils.rgbToHex(fireball.style.backgroundColor);
     var newColor = window.utils.getNextArrayElement(currentColor, window.colors.FIREBALL_COLORS);
     fireball.style.backgroundColor = window.utils.hexToRgb(newColor);
-    fireballInput.value = newColor;
+    fireballInput.value = window.utils.hexToRgb(newColor);
   });
 
-  window.wizards.render(4);
-  similarWizardsContainer.classList.remove('hidden');
+
+  // Запросы
+
+  var removeBanner = function () {
+    if (banner) {
+      banner.remove();
+    }
+  };
+
+  var renderBanner = function (text) {
+    banner = document.createElement('div');
+    banner.classList.add('error-banner');
+    banner.textContent = text;
+    document.body.insertAdjacentElement('afterbegin', banner);
+  };
+
+  var onSaveSuccess = function () {
+    userDialog.classList.add('hidden');
+  };
+
+  var onLoadSuccess = function (wizards) {
+    window.wizards.render(wizards, MAX_WIZARDS_NUMBER);
+    similarWizardsContainer.classList.remove('hidden');
+  };
+
+  var onError = function (errorMessage) {
+    renderBanner(errorMessage);
+  };
+
+  var onSubmit = function (evt) {
+    evt.preventDefault();
+    removeBanner();
+    window.backend.save(new FormData(form), onSaveSuccess, onError);
+  };
+
+  window.backend.load(onLoadSuccess, onError);
   wizardEyes.style.fill = 'black';
   fireball.style.backgroundColor = '#ee4830';
+  form.addEventListener('submit', onSubmit);
 
 })();
