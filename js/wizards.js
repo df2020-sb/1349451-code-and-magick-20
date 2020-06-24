@@ -18,15 +18,15 @@
   };
 
   var renderWizards = function (wizards, max) {
-    var randomWizards = window.utils.getRandomArrayElements(wizards, max);
-    for (var i = 0; i < randomWizards.length; i++) {
-      fragment.appendChild(renderWizard(randomWizards[i]));
+    for (var i = 0; i < max; i++) {
+      fragment.appendChild(renderWizard(wizards[i]));
     };
     similarListElement.appendChild(fragment);
+    fragment.innerHTML = '';
   };
 
   window.wizards = {
     render: renderWizards,
-  }
+  };
 
 })();

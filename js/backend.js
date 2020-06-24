@@ -34,7 +34,6 @@
     xhr.addEventListener('error', function () {
       onError('Ошибка соединения');
     });
-
   };
 
   var load = function (onLoad, onError) {
