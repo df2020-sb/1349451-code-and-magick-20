@@ -121,7 +121,7 @@
   var updateWizards = function () {
     similarListElement.innerHTML = '';
     window.wizards.render(wizards.slice().sort(function (left, right) {
-      return (getRank(right) - getRank(left) === 0)
+      return getRank(right) === getRank(left)
         ? sortNames(left.name, right.name)
         : getRank(right) - getRank(left);
     }), MAX_WIZARDS_NUMBER);
