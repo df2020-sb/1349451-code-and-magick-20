@@ -80,6 +80,7 @@
 
   var onSaveSuccess = function () {
     userDialog.classList.add('hidden');
+    dialogOpen.src = dialogDrag.querySelector('img').src;
   };
 
   var onLoadSuccess = function (data) {
